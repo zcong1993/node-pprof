@@ -1,3 +1,3 @@
-export default (a: number, b: number): number => {
-  return a + b
-}
+export * from './cpu'
+export * from './heap'
+export * from './server'

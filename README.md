@@ -1,17 +1,47 @@
-# **package_name**
+# node-pprof
 
-<!-- [![NPM version](https://img.shields.io/npm/v/@zcong/**package_name**.svg?style=flat)](https://npmjs.com/package/@zcong/**package_name**) -->
-<!-- [![NPM downloads](https://img.shields.io/npm/dm/@zcong/**package_name**.svg?style=flat)](https://npmjs.com/package/@zcong/**package_name**) -->
-<!-- [![codecov](https://codecov.io/gh/zcong1993/**package_name**/branch/master/graph/badge.svg)](https://codecov.io/gh/zcong1993/**package_name**) -->
+[![NPM version](https://img.shields.io/npm/v/@zcong/node-pprof.svg?style=flat)](https://npmjs.com/package/@zcong/node-pprof)
+[![NPM downloads](https://img.shields.io/npm/dm/@zcong/node-pprof.svg?style=flat)](https://npmjs.com/package/@zcong/node-pprof)
 
-> my cool project
+<!-- [![codecov](https://codecov.io/gh/zcong1993/node-pprof/branch/master/graph/badge.svg)](https://codecov.io/gh/zcong1993/node-pprof) -->
+
+> profiling cpu or take a heap snapshot like go tool pprof
+
+## Why
+
+Although `node --inspect` works well enough, but in real world memory leaks or cpu burst happen in production, it's not easy to use node --inpect in a production machine or pod, and it's difficult to simulate real production traffic locally.
 
 ## Install
 
 ```bash
-$ yarn add @zcong/**package_name**
+$ yarn add @zcong/node-pprof -D
 # or npm
-$ npm i @zcong/**package_name** --save
+$ npm i @zcong/node-pprof -D
+```
+
+## Usage
+
+**NOTE** A profiler needs to use CPU to work and it collects data into memory. The longer you let it run and the more CPU / memory it will need. This is why you should begin with very short CPU profiling, no more than a few seconds between the start and stop command. So we use a parameter to limit the maximum cpu profile time(aka maxCpuProfileSeconds).
+
+**NOTE2** This package will not work when you use `ts-node`.
+
+### Register (Recommend)
+
+```bash
+export PPROF_PORT=9393 # tiny http server port, default 9393
+export PPROF_MAX_SECONDS=60 # maxCpuProfileSeconds, default 60
+
+node -r @zcong/node-pprof/register ./your-server.js
+```
+
+### Programmatic
+
+```js
+// your-server.js
+const { createPprofServer } = require('@zcong/node-pprof')
+createPprofServer(9393, 60)
+
+// your code
 ```
 
 ## License
