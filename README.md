@@ -32,6 +32,15 @@ export PPROF_PORT=9393 # tiny http server port, default 9393
 export PPROF_MAX_SECONDS=60 # maxCpuProfileSeconds, default 60
 
 node -r @zcong/node-pprof/register ./your-server.js
+
+# profiling cpu
+curl 'localhost:9393/profile?seconds=30'
+# {"filename":"1629883324898-68.cpuprofile"}
+
+# take a heap snapshot
+
+curl 'localhost:9393/heap'
+# {"filename":"1629883486011-44.heapsnapshot"}
 ```
 
 ### Programmatic
