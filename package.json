@@ -55,5 +55,11 @@
   },
   "lint-staged": {
     "*": "prettier --write"
+  },
+  "bugs": "https://github.com/zcong1993/node-pprof/issues",
+  "homepage": "https://github.com/zcong1993/node-pprof",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zcong1993/node-pprof.git"
   }
 }
